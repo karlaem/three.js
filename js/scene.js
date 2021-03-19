@@ -8,23 +8,23 @@ camera.position.z = 5;
 //render
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor(0xffffff); // background
 document.body.appendChild( renderer.domElement );
 
-// add geometry to scene
-const geometry = new THREE.BoxGeometry(1,1,1);
+// add cube to scene
+/*const geometry = new THREE.BoxGeometry(1,1,1);
 //const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); //this material has no light or shadows
 const material = new THREE.MeshPhongMaterial( { color: 0x00ff00 } ); 
 const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+scene.add( cube );*/
 
 // add light
+const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+scene.add( light );
 const spotLight = new THREE.SpotLight( 0xffffff );
-spotLight.position.set( 100, 1000, 100 );
+spotLight.position.set( 100, 1000, 1000 );
 
-const spotLight2 = new THREE.SpotLight( 0xffffff );
-spotLight.position.set( 100, 1, -100 );
-
-scene.add( spotLight, spotLight2 );
+scene.add( spotLight);
 
 // add controls to click and rotate 
 const controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -33,6 +33,16 @@ const controls = new THREE.OrbitControls( camera, renderer.domElement );
 camera.position.set( 0, 5, 1 );
 controls.update();
 
+// add our 3d model
+const loader = new THREE.GLTFLoader();
+loader.load( 'model/saxophone3.gltf', function ( gltf ) {
+
+    gltf.scene.rotation.set(THREE.Math.degToRad(300), THREE.Math.degToRad(0), THREE.Math.degToRad(0)); //rotation at start
+	scene.add( gltf.scene );
+
+}, undefined, function ( error ) {
+	console.error( error );
+} );
 
 // render scene
 const animate = function () {
