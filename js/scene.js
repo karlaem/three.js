@@ -3,7 +3,7 @@ const scene = new THREE.Scene();
 
 // camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.z = 9;
+camera.position.z = 5;
 
 //render
 const renderer = new THREE.WebGLRenderer();
@@ -50,7 +50,7 @@ controls.minPolarAngle = controls.maxPolarAngle = Math.PI/2; //
 controls.addEventListener( 'change', onCameraUpdate );
 
 //controls.update() must be called after any manual changes to the camera's transform
-camera.position.set( 0, 5, 1 );
+camera.position.set( 0, 7, 1 );
 controls.update();
 
 // add our 3d model
